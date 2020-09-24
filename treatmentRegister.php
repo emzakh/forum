@@ -8,7 +8,7 @@ if(isset($_POST['login'])){
         $login=htmlspecialchars($_POST['login']);
         $req=$bdd->prepare("SELECT * FROM members WHERE login=?");
         $req->execute([$login]);
-        if($don=$req->fetch()){
+        if($don=$req->fetch()){ //si  ya une reponse ça veut dire que login existe déjà
             $err=2;
         }
         $req->closeCursor();
@@ -43,8 +43,8 @@ if(isset($_POST['login'])){
             ":role"=>"ROLE_USER"
         ]);
         $insert->closeCursor();
-        header("LOCATION:index.php");
-        
+        header("LOCATION:index.php?register=success");
+
     }else{
         header("LOCATION:inscription.php?error=".$err);
     }
